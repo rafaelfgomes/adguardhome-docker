@@ -7,7 +7,7 @@ services:
       - "53:53/udp"
       #- "67:67/udp" #Needed for DHCP Server
       #- "68:68/udp" #Needed for DHCP Server
-      - "8686:80/tcp"
+      - "8080:80/tcp"
       - "10443:443/tcp"
       - "10443:443/udp"
       - "784:784/udp"
@@ -18,8 +18,8 @@ services:
       - "5443:5443/udp"
       - "8853:8853/udp"
     volumes:
-      - './work:/opt/adguardhome/work'
-      - './config:/opt/adguardhome/conf'
+      - work:/opt/adguardhome/work
+      - config:/opt/adguardhome/conf
     restart: unless-stopped
     networks:
       - net
@@ -27,3 +27,9 @@ services:
 networks:
   net:
     external: false
+
+volumes:
+  work:
+    name: adguardhome-work
+  config:
+    name: adguardhome-config
