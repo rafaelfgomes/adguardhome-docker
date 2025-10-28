@@ -19,7 +19,7 @@ RUN chown -R admin:container /opt/adguardhome/conf && \
 
 WORKDIR /opt/adguardhome/work
 
-USER admin
+#USER admin
 
 ENTRYPOINT ["/opt/adguardhome/AdGuardHome"]
 
