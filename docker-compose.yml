@@ -15,8 +15,8 @@ services:
       #- "67:67/udp" #Needed for DHCP Server
       #- "68:68/udp" #Needed for DHCP Server
       - "${HTTP_PORT:-80}:80/tcp"
-      - "${HTTPSPORT:-443}:443/tcp"
-      - "${HTTPSPORT:-443}:443/udp"
+      - "${HTTPS_PORT:-443}:443/tcp"
+      - "${HTTPS_PORT:-443}:443/udp"
       - "784:784/udp"
       - "853:853/tcp"
       - "853:853/udp"
