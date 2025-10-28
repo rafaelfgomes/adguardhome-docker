@@ -4,7 +4,7 @@ ARG UID
 ARG GID
 ARG TIMEZONE
 
-RUN apk --no-cache update && apk add --no-cache postgresql-dev shadow sudo
+RUN apk --no-cache update && apk add --no-cache shadow sudo
 
 RUN groupadd -g ${GID} container && useradd -m -u ${UID} -g container admin
 
