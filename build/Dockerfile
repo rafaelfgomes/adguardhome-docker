@@ -12,11 +12,14 @@ RUN echo "admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/admin && chmod 0440 /e
 
 RUN ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 
-RUN usermod -aG root admin
+RUN chown -R admin:container /opt/adguardhome/conf && \
+    chown -R admin:container /opt/adguardhome/work && \
+    chmod -R 775 /opt/adguardhome/conf && \
+    chmod -R 775 /opt/adguardhome/work
 
 WORKDIR /opt/adguardhome/work
 
-#USER admin
+USER admin
 
 ENTRYPOINT ["/opt/adguardhome/AdGuardHome"]
 
