@@ -12,6 +12,8 @@ RUN echo "admin ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/admin && chmod 0440 /e
 
 RUN ln -sf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime
 
+RUN chown -R admin:container /opt/adguardhome
+
 WORKDIR /opt/adguardhome/work
 
 USER admin
