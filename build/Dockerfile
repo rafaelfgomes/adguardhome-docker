@@ -4,7 +4,7 @@ ARG UID
 ARG GID
 ARG TIMEZONE
 
-RUN apk --no-cache update && apk add --no-cache shadow sudo
+RUN apk --no-cache update && apk add --no-cache shadow sudo tzdata libcap
 
 RUN groupadd -g ${GID} container && useradd -m -u ${UID} -g container admin
 
@@ -17,9 +17,11 @@ RUN chown -R admin:container /opt/adguardhome/conf && \
     chmod -R 775 /opt/adguardhome/conf && \
     chmod -R 775 /opt/adguardhome/work
 
+RUN setcap 'CAP_NET_BIND_SERVICE=+eip CAP_NET_RAW=+eip' /opt/adguardhome/AdGuardHome
+
 WORKDIR /opt/adguardhome/work
 
-#USER admin
+USER admin
 
 ENTRYPOINT ["/opt/adguardhome/AdGuardHome"]
 
