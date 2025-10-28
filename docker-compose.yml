@@ -1,7 +1,13 @@
 services:
   adguardhome:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - TIMEZONE=${TIMEZONE:-UTC}
     container_name: adguardhome
-    image: adguard/adguardhome
     hostname: adguardhome
     ports:
       - "53:53/tcp"
@@ -14,7 +20,7 @@ services:
       - "784:784/udp"
       - "853:853/tcp"
       - "853:853/udp"
-      - "${SETUP_PORT:-3000}:3000/tcp"
+      - "${INITIAL_SETUP_PORT:-3000}:3000/tcp"
       - "5443:5443/tcp"
       - "5443:5443/udp"
       - "8853:8853/udp"
