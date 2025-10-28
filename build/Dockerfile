@@ -18,4 +18,4 @@ USER admin
 
 ENTRYPOINT ["/opt/adguardhome/AdGuardHome"]
 
-CMD ["--no-check-update", "-c", "/opt/adguardhome/conf/AdGuardHome.yaml", "-w"]
+CMD ["--no-check-update", "-c", "/opt/adguardhome/conf/AdGuardHome.yaml", "-w", "/opt/adguardhome/work"]
