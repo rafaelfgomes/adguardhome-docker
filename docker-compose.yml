@@ -7,10 +7,7 @@ services:
     volumes:
       - ${UNBOUND_CONF_FOLDER:-./unbound/conf}:/opt/unbound/etc/unbound
       - ${UNBOUND_DATA_FOLDER:-./unbound/data}:/opt/unbound/var/lib/unbound
-      - ./unbound.conf:/opt/unbound/etc/unbound/unbound.conf
-    ports:
-      - "5335:5335/udp" # Port for Unbound to listen on, change if needed
-      - "5335:5335/tcp"
+    command: -c /opt/unbound/etc/unbound/unbound.conf
     networks:
       net:
         ipv4_address: 172.20.0.10
