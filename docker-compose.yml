@@ -7,6 +7,9 @@ services:
     volumes:
       - ${UNBOUND_CONF_FOLDER:-./unbound/conf}:/opt/unbound/etc/unbound
       - ${UNBOUND_DATA_FOLDER:-./unbound/data}:/opt/unbound/var/lib/unbound
+    ports:
+      - "5335:5335/udp"
+      - "5335:5335/tcp"
     networks:
       net:
         ipv4_address: 172.20.0.10
