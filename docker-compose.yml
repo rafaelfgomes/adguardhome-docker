@@ -12,7 +12,8 @@ services:
       - "5335:5335/udp" # Port for Unbound to listen on, change if needed
       - "5335:5335/tcp"
     networks:
-      - net
+      net:
+        ipv4_address: 172.16.81.10
 
   adguardhome:
     image: adguard/adguardhome
@@ -28,8 +29,13 @@ services:
       - ${CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
     restart: unless-stopped
     networks:
-      - net
+      net:
+        ipv4_address: 172.16.81.20
 
 networks:
   net:
     external: false
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.81.0/24
