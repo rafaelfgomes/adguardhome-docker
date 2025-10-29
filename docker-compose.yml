@@ -1,4 +1,19 @@
 services:
+  unbound:
+    image: mvance/unbound
+    container_name: unbound
+    hostname: unbound
+    restart: unless-stopped
+    volumes:
+      - ${UNBOUND_CONF:-./unbound/conf}:/opt/unbound/etc/unbound
+      - ${UNBOUND_DATA:-./unbound/data}:/opt/unbound/var/lib/unbound
+      - ./unbound.conf:/opt/unbound/etc/unbound/unbound.conf
+    ports:
+      - "5335:5335/udp" # Port for Unbound to listen on, change if needed
+      - "5335:5335/tcp"
+    networks:
+      - net
+
   adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
@@ -6,18 +21,8 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      #- "67:67/udp" #Needed for DHCP Server
-      #- "68:68/udp" #Needed for DHCP Server
       - "${HTTP_PORT:-80}:80/tcp"
       - "${HTTPS_PORT:-443}:443/tcp"
-      - "${HTTPS_PORT:-443}:443/udp"
-      - "784:784/udp"
-      - "853:853/tcp"
-      - "853:853/udp"
-      - "${INITIAL_SETUP_PORT:-3000}:3000/tcp"
-      - "5443:5443/tcp"
-      - "5443:5443/udp"
-      - "8853:8853/udp"
     volumes:
       - ${WORK_FOLDER:-./work}:/opt/adguardhome/work
       - ${CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
