@@ -5,8 +5,8 @@ services:
     hostname: unbound
     restart: unless-stopped
     volumes:
-      - ${UNBOUND_CONF:-./unbound/conf}:/opt/unbound/etc/unbound
-      - ${UNBOUND_DATA:-./unbound/data}:/opt/unbound/var/lib/unbound
+      - ${UNBOUND_CONF_FOLDER:-./unbound/conf}:/opt/unbound/etc/unbound
+      - ${UNBOUND_DATA_FOLDER:-./unbound/data}:/opt/unbound/var/lib/unbound
       - ./unbound.conf:/opt/unbound/etc/unbound/unbound.conf
     ports:
       - "5335:5335/udp" # Port for Unbound to listen on, change if needed
