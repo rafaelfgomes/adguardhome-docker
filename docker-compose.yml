@@ -1,19 +1,4 @@
 services:
-  unbound:
-    image: mvance/unbound
-    container_name: unbound
-    hostname: unbound
-    restart: unless-stopped
-    volumes:
-      - ${UNBOUND_CONF_FOLDER:-./unbound/conf}:/opt/unbound/etc/unbound
-      - ${UNBOUND_DATA_FOLDER:-./unbound/data}:/opt/unbound/var/lib/unbound
-    ports:
-      - "5335:5335/udp"
-      - "5335:5335/tcp"
-    networks:
-      net:
-        ipv4_address: 172.20.0.10
-
   adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
@@ -21,18 +6,22 @@ services:
     ports:
       - "53:53/tcp"
       - "53:53/udp"
+      - "${INITIAL_SETUP_PORT:-3000}:3000/tcp"
       - "${HTTP_PORT:-80}:80/tcp"
       - "${HTTPS_PORT:-443}:443/tcp"
     volumes:
-      - ${WORK_FOLDER:-./work}:/opt/adguardhome/work
-      - ${CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
+      - work:/opt/adguardhome/work
+      - config:/opt/adguardhome/conf
     restart: unless-stopped
     networks:
       net:
-        ipv4_address: 172.20.0.20
+
+volumes:
+  work:
+    name: adguardhome-work
+  config:
+    name: adguardhome-config
 
 networks:
   net:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/24
+    external: false
