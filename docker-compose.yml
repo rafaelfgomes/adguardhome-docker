@@ -3,25 +3,13 @@ services:
     image: adguard/adguardhome
     container_name: adguardhome
     hostname: adguardhome
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "${INITIAL_SETUP_PORT:-3000}:3000/tcp"
-      - "${HTTP_PORT:-80}:80/tcp"
-      - "${HTTPS_PORT:-443}:443/tcp"
     volumes:
-      - work:/opt/adguardhome/work
-      - config:/opt/adguardhome/conf
+      - ${ADGUARD_WORK_FOLDER:-./work}:/opt/adguardhome/work
+      - ${ADGUARD_CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
     restart: unless-stopped
     networks:
       net:
 
-volumes:
-  work:
-    name: adguardhome-work
-  config:
-    name: adguardhome-config
-
-networks:
-  net:
-    external: false
+include:
+  - path: ${PORT_CONFIG_FILE}
+  - path: ${NETWORK_CONFIG_FILE}

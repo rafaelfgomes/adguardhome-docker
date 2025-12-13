@@ -1,0 +1,8 @@
+services:
+  adguardhome:
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "${INITIAL_SETUP_PORT:-3000}:3000/tcp"
+      - "${HTTP_PORT:-80}:80/tcp"
+      - "${HTTPS_PORT:-443}:443/tcp"
