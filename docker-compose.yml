@@ -7,9 +7,11 @@ services:
       - ${ADGUARD_WORK_FOLDER:-./work}:/opt/adguardhome/work
       - ${ADGUARD_CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
     restart: unless-stopped
+    extends:
+      file: ${PORT_CONFIG_FILE}
+      service: ports_config
     networks:
       net:
 
 include:
-  - path: ${PORT_CONFIG_FILE}
   - path: ${NETWORK_CONFIG_FILE}
