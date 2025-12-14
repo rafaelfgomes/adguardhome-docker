@@ -6,6 +6,7 @@ services:
     volumes:
       - ${ADGUARD_WORK_FOLDER:-./work}:/opt/adguardhome/work
       - ${ADGUARD_CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
+      - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     networks:
       net:
