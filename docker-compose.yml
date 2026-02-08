@@ -4,12 +4,8 @@ services:
     container_name: adguardhome
     hostname: adguardhome
     volumes:
-      - ${ADGUARD_WORK_FOLDER:-./work}:/opt/adguardhome/work
-      - ${ADGUARD_CONFIG_FOLDER:-./config}:/opt/adguardhome/conf
+      - ./work:/opt/adguardhome/work
+      - ./config:/opt/adguardhome/conf
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
-    networks:
-      net:
-
-networks:
-  net: {}
+    network_mode: host
