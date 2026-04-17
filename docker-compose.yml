@@ -8,7 +8,8 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE:-Etc/UTC}
     volumes:
-      - ./data:/opt/adguardhome
+      - ./data/adguardhome/work:/opt/adguardhome/work
+      - ./data/adguardhome/config:/opt/adguardhome/conf
     restart: unless-stopped
     ports:
       - '53:53'
