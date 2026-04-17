@@ -8,8 +8,7 @@ services:
       - PGID=${PGID}
       - TZ=${TIMEZONE:-Etc/UTC}
     volumes:
-      - ./data/adguardhome/work:/opt/adguardhome/work
-      - ./data/adguardhome/config:/opt/adguardhome/conf
+      - ./data:/opt/adguardhome
     restart: unless-stopped
     ports:
       - '53:53'
@@ -20,27 +19,6 @@ services:
       - '3000:3000/tcp'
       - '5443:5443'
       - '8853:8853/udp'
-    networks:
-      local:
-
-  backup:
-    image: ghcr.io/rafaelfgomes/syncthing
-    container_name: adguardhome-backup
-    environment:
-      - PUID=${PUID}
-      - PGID=${PGID}
-      - TZ=${TIMEZONE:-Etc/UTC}
-    volumes:
-      - ./data/syncthing/config:/var/syncthing
-      - ./data/adguardhome:/data
-    restart: unless-stopped
-    ports:
-      - '8384:8384'
-      - '22000:22000/tcp'
-      - '22000:22000/udp'
-      - '21027:21027/udp'
-    depends_on:
-      - adguardhome
     networks:
       local:
 
