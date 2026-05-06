@@ -6,7 +6,8 @@ services:
     volumes:
       - ${ADGUARDHOME_CONF_FOLDER:-./data/config}:/opt/adguardhome/conf
       - ${ADGUARDHOME_WORK_FOLDER:-./data/work}:/opt/adguardhome/work
-      - TZ:${TIMEZONE:-Etc/UTC}
+    environment:
+      - TZ=${TIMEZONE:-Etc/UTC}
     restart: unless-stopped
     ports:
       - '5443:5443/udp'
