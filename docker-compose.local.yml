@@ -26,11 +26,11 @@ services:
       - '53:53/tcp'
     networks:
       local:
-        ipv4_address: 172.${SUBNET_NUMBER}.0.2
+        ipv4_address: 172.${SUBNET_NUMBER:-20}.0.2
 
 networks:
   local:
     ipam:
       config:
-        - subnet: 172.${SUBNET_NUMBER}.0.0/16
-          gateway: 172.${SUBNET_NUMBER}.0.1
+        - subnet: 172.${SUBNET_NUMBER:-20}.0.0/16
+          gateway: 172.${SUBNET_NUMBER:-20}.0.1

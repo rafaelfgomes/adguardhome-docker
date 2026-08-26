@@ -6,6 +6,7 @@ services:
     volumes:
       - ./data/config:/opt/adguardhome/conf
       - ./data/work:/opt/adguardhome/work
-      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - TZ=${TIMEZONE:-Etc/UTC}
     restart: unless-stopped
     network_mode: host
